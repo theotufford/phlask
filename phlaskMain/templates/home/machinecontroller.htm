@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color:white;">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<p id='test'></p>
+
+<div class="dropdown" name= vehicle method="GET" action="/experimentQuery">
+  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." name="experiments" onkeyup="filterFunction()">
+    {% for row in expirments %}
+    <li>
+    <option value="{{row[0]}}">{{row[1]}}</option>
+    </li>    
+    <li class="divider"></li>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function runExperiment(experiment) {
+
+ document.getElementById('test').innerHTML = 'it worked!'; 
+
+}
+
+
+
+function filterFunction() {
+  const input = document.getElementById("myInput");
+  const filter = input.value.toUpperCase();
+  const div = document.getElementById("myDropdown");
+  const a = div.getElementsByTagName("li");
+  for (let i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+</body>
+</html>
