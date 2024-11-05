@@ -6,13 +6,13 @@ from flask import (
 
 from phlaskMain.db import get_db
 
-bp = Blueprint('home', __name__, url_prefix='/home')
-@bp.route('/experimentQuery')
-def returnexperiments():
-    experiment = db.session.execute("SELECT title FROM experiment ").fetchall()
-    return render_template('home/machinecontroller.htm', experiment = experiment)
+bp = Blueprint('home', __name__, url_prefix='/')
 
-@bp.route('/machineControl', methods=('GET','POST'))
 
-def returnhomePage():
-    return render_template('home/machinecontroller.htm')
+
+@bp.route('/')
+def homePage():
+    db = get_db()
+    plates = db.execute("SELECT plateName FROM plates ").fetchall()
+    experiments = db.execute("SELECT title FROM experiments ").fetchall()
+    return render_template('home/mainHomePage.htm', plates=plates, experiments=experiments,)

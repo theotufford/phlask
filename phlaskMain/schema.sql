@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS experiment;
-DROP TABLE IF EXISTS trayData;
+DROP TABLE IF EXISTS experiments;
+DROP TABLE IF EXISTS plates;
 
 
 CREATE TABLE user (
@@ -8,18 +8,18 @@ CREATE TABLE user (
   username TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE trayData (
-  trayid INTEGER PRIMARY KEY AUTOINCREMENT,
-  trayName TEXT NOT NULL,
-  wellPositions FLOAT NOT NULL
+CREATE TABLE plates (
+  plateid INTEGER PRIMARY KEY AUTOINCREMENT,
+  plateName TEXT NOT NULL,
+  plateData TEXT NOT NULL
 );
 
-CREATE TABLE experiment (
+CREATE TABLE experiments (
   experimentid INTEGER PRIMARY KEY AUTOINCREMENT,
-  tray INTEGER NOT NULL,
+  tray INTEGER, 
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  title TEXT NOT NULL,
-  info TEXT NOT NULL,
-  instructions TEXT NOT NULL, 
-  authorID INTEGER NOT NULL
+  title TEXT,
+  info TEXT,
+  instructions TEXT, 
+  authorID INTEGER
 );

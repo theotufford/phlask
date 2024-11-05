@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script rel="js" src="{{ url_for('static', filename='js/functions.js') }}"></script> 
+
+
+
+<div>
+  <h1 id="pageHeader">Phlask Home</h1>
+  <div class="headerlink">
+  <a style="text-decoration: none; color:black" href="../program/">Experiment Programmer</a>
+  </div>
+</div>
+
+<div class="dropdown-group">
+
+  <div class="dropdown" method="GET" action="/">
+    <button onclick="showFunction('myDropdown')" class="dropbtn">Select experiment</button>
+    <div id="myDropdown" class="dropdown-content">
+      <input class="DDsearch" type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction('myInput','myDropdown')">
+
+        {% for experiment in experiments %}
+        <a href="#{{experiment[0]}}">{{experiment[0]}}</a>
+        {% endfor %}
+
+    </div>
+  </div>
+
+  <div class="dropdown" method="GET" action="/">
+    <button onclick="showFunction('plateDropdown')" class="dropbtn">Select plate</button>
+    <div id="plateDropdown" class="dropdown-content">
+      <input class="DDsearch" type="text" placeholder="Search.." id="plateSelector" onkeyup="filterFunction('plateSelector','plateDropdown')">
+
+        {% for plate in plates %}
+        <a href="#{{plate[0]}}">{{plate[0]}}</a>
+        {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+  
+</html>
+
+

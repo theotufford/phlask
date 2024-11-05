@@ -8,19 +8,28 @@ from phlaskMain.db import get_db
 
 
 bp = Blueprint('programmer', __name__, url_prefix='/program')
-@bp.route('/submitprogram', methods=("GET","POST"))
+
+@bp.route('/', methods=("GET","POST"))
 def submitprogram():
     if  request.method == "POST":
         experimentTitle = request.form['title']
-        db = get_db
+        db = get_db()
         error = None
         if not experimentTitle:
             experimentTitle =  date.today()
         if error is None:
             db.execute(
-                "INSERT INTO title (experimentTitle) (?)",(experimentTitle),
+                "INSERT INTO experiments (title) VALUES (?)",(experimentTitle, )
             ).fetchall()
             db.commit()
-            return redirect(url_for("home")) 
+            return redirect(url_for("home.homePage")) 
         flash(error)
-    return render_template("programmer/programmer.htm")
+
+    return render_template("programmer/programmer.htm", methodList = methods) 
+
+@bp.route('/test', methods=("GET","POST"))
+def incrementPage():
+    return render_template("programmer/test.htm")
+def incrementTest():
+    incremented = session.get('ExperimentInstructionCount') + 1
+    session['ExperimentInstructionCount'] = incremented

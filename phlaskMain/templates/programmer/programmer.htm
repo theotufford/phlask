@@ -1,6 +1,34 @@
-<!DOCTYPE>
+<!DOCTYPE html>
+
+
+<script rel="js" src="{{ url_for('static', filename='js/functions.js') }}"></script> 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  
+{% set formcount = 0 %}
+
 <form method='post'>
-  <label for="title">input title, leave blank for db to autofill current date and time</label>
+  <label for="title"></label>
   <input name="title" id="title">
   <input type="submit" value="store experiment">
 </form>
+<div id="plateDisplay">
+  <h1>This is where the display of the plate will go</h1>
+</div>
+  <!-- this is the container where all the method forms go-->
+<div id="formContainer">
+
+
+</div>
+
+
+
+<div  id="form-">
+  
+</div>
+
+
+<button onclick="makeCopy({{ formcount + 1 }})">add another action set</button>
+
+
+
