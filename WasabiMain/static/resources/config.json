@@ -1,0 +1,9 @@
+{"plates":[
+  {"dimension":{"rows":8,"columns":12},
+    "namingConvention":"AN",
+    "radius":5},
+
+  {"dimension":{"rows":2,"columns":3},
+    "namingConvention":"n",
+    "radius":20}
+]}

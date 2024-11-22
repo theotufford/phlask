@@ -1,17 +1,8 @@
-DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS experiments;
 DROP TABLE IF EXISTS plates;
 
-
-CREATE TABLE user (
-  userid INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT UNIQUE NOT NULL
-);
-
-CREATE TABLE plates (
-  plateid INTEGER PRIMARY KEY AUTOINCREMENT,
-  plateName TEXT NOT NULL,
-  plateData TEXT NOT NULL
+CREATE TABLE plateatlas (
+  plateData TEXT
 );
 
 CREATE TABLE experiments (

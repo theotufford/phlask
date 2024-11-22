@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+
+<script rel="js" src="{{ url_for('static', filename='js/functions.js') }}"></script> 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+<div id="plateDisplay">
+  <div class="plateDropdown" method="GET" action="/">
+    <button onclick="showFunction('plateDropdown')">Select plate</button>
+    <div id="plateDropdown" class="dropdown-content">
+        {% for plate in DBplates %}
+      <li>
+        <button onclick = 'renderPlate({{DBplates[plate] | tojson }})' class = "dropdownButton">{{plate}}</button>
+      </li>
+        {% endfor %}
+</div>
+</div>
+</div>
+
+
+<canvas id="plateCanvas" style="float:right" width = "800" height = "800">
+test text
+</canvas>
+
+
+<div id="experimentContainer">
+
+  <h4>Experiment title</h4>
+  <input name="title">
+
+  <form id="instruction">
+    <input id="form">
+  </form>
+
+</div>
+
+<button 
+  onclick="makeCopy('instruction','experimentContainer')">
+  add another instruction
+</button>
+
+<button onclick='logExperiment()'>Store Experiment</button>
+
+
+

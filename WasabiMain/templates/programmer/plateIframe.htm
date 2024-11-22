@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+
+<script rel="js" src="{{ url_for('static', filename='js/functions.js') }}"></script> 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+<script>
+const plateOptions = {{plates}};
+
+</script>
+
+  <div class="plateDropdown" method="GET" action="/">
+    <button onclick="showFunction('myDropdown')">Select experiment</button>
+    <div id="plateDropdown" class="dropdown-content">
+
+        {% for plate in plates %}
+    <button onclick = "renderplate({{plate}})" class = "dropdownButton">{{plate[0]}}</button>
+        {% endfor %}
+</div>
+</div>

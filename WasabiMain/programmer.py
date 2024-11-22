@@ -1,19 +1,21 @@
 import functools
 from datetime import date
+import json
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, current_app, render_template, request, session, url_for
 )
 
-from phlaskMain.db import get_db
+from WasabiMain.db import (get_db,wellPos)
 
 
 bp = Blueprint('programmer', __name__, url_prefix='/program')
 
 @bp.route('/', methods=("GET","POST"))
-def submitprogram():
+
+def programmer():
+    db = get_db()
     if  request.method == "POST":
         experimentTitle = request.form['title']
-        db = get_db()
         error = None
         if not experimentTitle:
             experimentTitle =  date.today()
@@ -24,12 +26,9 @@ def submitprogram():
             db.commit()
             return redirect(url_for("home.homePage")) 
         flash(error)
+    with current_app.open_resource('./static/resources/config.json') as f:
+        jsonstring = json.loads(f.read())
+        PlateInfo = jsonstring["plates"] 
+    DBplates = json.loads(db.execute('SELECT plateData FROM plateatlas').fetchone()[0])
+    return render_template("programmer/programmer.htm", plates=PlateInfo, DBplates = DBplates) 
 
-    return render_template("programmer/programmer.htm", methodList = methods) 
-
-@bp.route('/test', methods=("GET","POST"))
-def incrementPage():
-    return render_template("programmer/test.htm")
-def incrementTest():
-    incremented = session.get('ExperimentInstructionCount') + 1
-    session['ExperimentInstructionCount'] = incremented
