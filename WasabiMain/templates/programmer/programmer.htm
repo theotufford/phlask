@@ -3,28 +3,28 @@
 
 <script rel="js" src="{{ url_for('static', filename='js/functions.js') }}"></script> 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<body>
 
 
-<div id="plateDisplay">
-  <div class="plateDropdown" method="GET" action="/">
-    <button onclick="showFunction('plateDropdown')">Select plate</button>
-    <div id="plateDropdown" class="dropdown-content">
-        {% for plate in DBplates %}
-      <li>
-        <button onclick = 'renderPlate({{DBplates[plate] | tojson }})' class = "dropdownButton">{{plate}}</button>
-      </li>
-        {% endfor %}
+<div id='plateOverContainer' style="float:left">
+  
+  <div id="plateDisplay">
+    <div class="plateDropdown" method="GET" action="/">
+      <button onclick="showFunction('plateDropdown')">Select plate</button>
+      <div id="plateDropdown" class="dropdown-content">
+          {% for plate in DBplates %}
+        <li>
+          <button onclick = 'renderPlate({{DBplates[plate] | tojson }})' class = "dropdownButton">{{plate}}</button>
+        </li>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="canvascontainer" >
+  <svg id="plateCanvas" width = "60vw" height = "100vh" xmlns="http://www.w3.org/2000/svg">
+  </div>
 </div>
-</div>
-</div>
-
-
-<canvas id="plateCanvas" style="float:right" width = "800" height = "800">
-test text
-</canvas>
-
-
-<div id="experimentContainer">
+<div id="experimentContainer" style="float:left">
 
   <h4>Experiment title</h4>
   <input name="title">
@@ -33,14 +33,11 @@ test text
     <input id="form">
   </form>
 
+  <button 
+    onclick="makeCopy('instruction','experimentContainer')">
+    add another instruction
+  </button>
+
+  <button onclick='logExperiment()'>Store Experiment</button>
 </div>
-
-<button 
-  onclick="makeCopy('instruction','experimentContainer')">
-  add another instruction
-</button>
-
-<button onclick='logExperiment()'>Store Experiment</button>
-
-
-
+</body>

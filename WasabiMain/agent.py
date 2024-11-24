@@ -10,7 +10,5 @@ bp = Blueprint('agent', __name__, url_prefix='/')
 
 
 
-@bp.route('/placeholder') 
-def placeholder():
-    print("this is a placeholder")
+
 

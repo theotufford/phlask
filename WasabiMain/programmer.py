@@ -32,3 +32,6 @@ def programmer():
     DBplates = json.loads(db.execute('SELECT plateData FROM plateatlas').fetchone()[0])
     return render_template("programmer/programmer.htm", plates=PlateInfo, DBplates = DBplates) 
 
+@bp.route('/test', methods=("GET","POST"))
+def test():
+    return render_template("programmer/test.htm")

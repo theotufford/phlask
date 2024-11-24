@@ -9,7 +9,17 @@
  inherits: false;
  initial-value: #a6a6a6;
 }
-
+#plateCanvas {
+  position: fixed;
+  right:0px;
+  top:0px;
+}
+.canvasContainer {
+ position: relative;
+ right:0px;
+ top:0px;
+ width:50vw;
+}
 
 
 /*general page css goes here*/
@@ -97,5 +107,5 @@
 }
 
 .dropdown a:hover {background-color: #ddd;}
-
 .show {display: block;}
+
