@@ -20,12 +20,17 @@
  top:0px;
  width:50vw;
 }
+.wellLabel{
+
+ user-select:none; 
+
+}
 
 
 /*general page css goes here*/
 .hidden{
 
-  display=none;
+  display:none;
 
 }
 

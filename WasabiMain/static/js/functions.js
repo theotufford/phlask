@@ -37,14 +37,13 @@ document.addEventListener("mouseup", function(e) {
 
 });
 highlight = [];
-
+lastCell = " ";
 function renderPlate(platejson){
   const canvas = document.getElementById("plateCanvas");
   const rect = canvas.getBoundingClientRect();
   iHateCircles();
   rad = 99999; 
   width = 1;
-  console.log(platejson);
   for (obj in platejson){
     if (platejson[obj].x != 0){
       if (platejson[obj].x < rad){
@@ -57,16 +56,21 @@ function renderPlate(platejson){
   }
   width = width+rad*2;
   const scaleval = (rect.right-rect.left)/width;
-  console.log(scaleval)
   rad = 0.98*rad/2;
   padding = 5; 
   for (well in platejson){
     xpos = ((platejson[well].x+rad)+padding)*scaleval;
     ypos = ((platejson[well].y+rad)+padding)*scaleval;
-    var circle = document.createElementNS(svgns, 'circle');
+    const circle = document.createElementNS(svgns, 'circle');
+    const text = document.createElementNS(svgns, 'text');
     const style = 'fill-opacity:10%; stroke: blue; stroke-width: 1px;'
     const fill = 'fill: blue;'
     const notfill = 'fill: gray;' 
+    text.setAttributeNS(null, 'x', xpos );
+    text.setAttributeNS(null, 'y', ypos);
+    text.setAttributeNS(null, 'text-anchor', "middle");
+    text.setAttributeNS(null, 'class', "wellLabel");
+    text.textContent=well;
     circle.setAttributeNS(null, 'cx', xpos);
     circle.setAttributeNS(null, 'cy', ypos);
     circle.setAttributeNS(null, 'r', rad*scaleval);
@@ -74,16 +78,23 @@ function renderPlate(platejson){
     circle.setAttributeNS(null, 'id', well);
     circle.setAttributeNS(null, 'class', "circ");
     canvas.appendChild(circle);
+    canvas.appendChild(text);
     circle.addEventListener("mouseover", function(e) {
+      if (this.getAttributeNS(null,"id") === lastCell){
+
+      }else{
         if (e.shiftKey){
           if (this.getAttributeNS(null, 'style') === fill + style ){
             this.setAttributeNS(null, 'style', notfill + style)
             highlight.splice(highlight.indexOf(this.getAttributeNS(null,"id"), 1))
+            lastCell = this.getAttributeNS(null,"id");
           }else{
             this.setAttributeNS(null, 'style', fill + style)
             highlight.push(this.getAttributeNS(null,"id"))
+            lastCell = this.getAttributeNS(null,"id");
           }
         }
+      }
     });
 
     circle.addEventListener("mousedown", function(e) {
