@@ -9,22 +9,7 @@
  inherits: false;
  initial-value: #a6a6a6;
 }
-#plateCanvas {
-  position: fixed;
-  right:0px;
-  top:0px;
-}
-.canvasContainer {
- position: relative;
- right:0px;
- top:0px;
- width:50vw;
-}
-.wellLabel{
 
- user-select:none; 
-
-}
 
 
 /*general page css goes here*/
@@ -107,10 +92,168 @@
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+  text-decoration: none; display: block;
 }
 
 .dropdown a:hover {background-color: #ddd;}
+
 .show {display: block;}
 
+
+
+/*programmer css*/
+
+body {
+  display: flex;
+  height: 100vh; /* Full height */
+  background-color: #fff0f0; /* Optional background */
+}
+
+
+/* plate stuff */
+#plateContainer{
+  display: flex;
+  position:fixed;
+  border: 2px solid #ccc;
+  width:60vw;
+  height:100vh;
+  justify-content: space-between;
+  padding: 20px;
+  overflow: hidden; /* Prevent scrollbars if content overflows */
+}
+
+#plateSvgElement{
+
+  width:95%;
+  align-self: center;
+
+}
+
+#plateButtons{
+  display: flex;
+  justify-self: bottom;
+  justify-content:space-between;
+
+
+}
+
+.circ{
+  fill-opacity:40%; 
+  stroke: black; 
+  stroke-width: 2px;
+  fill: gray;
+}
+
+.highlightedWell{
+fill: blue;
+}
+
+
+/* form interface stuff */
+#experimentContainer{
+  width:40vw;
+  justify-content: flex-start;
+  margin: 20px;
+
+}
+.selectors{
+  padding: 5px;
+  margin: 10px;
+}
+.mediumButton{
+
+  background-color: var(--colorA);
+  color: white;
+  border-radius: 25px;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+
+}
+.activeForm{
+  border: 3px solid;
+  border-radius: 8px;
+  padding-bottom: 30px;
+  padding:10px;
+  margin: 1vw;
+  display: flex;
+  justify-content: space-between;
+}
+.innactiveForm{
+
+  border: 3px solid;
+  border-radius: 8px;
+  padding-bottom: 30px;
+  padding:10px;
+  margin: 1vw;
+  display:flex;
+  justify-content: space-between;
+}
+
+.innactiveForm *:not(.shorthand, .shorthand *) {
+  display:none;
+} 
+
+.innactiveForm > .shorthand{
+  display:flex;
+}
+
+.activeForm > .shortHandInfoContainer {
+
+  display:none;
+
+}
+
+
+.wellSelector{
+  width:25%;
+  margin:5px;
+  border: 1px solid;
+}
+
+#expansionButtons{
+
+  margin:3vw;
+
+}
+
+#titleBar {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+
+.unitSelect{
+  margin: 5px;
+}
+
+.info {
+  padding:5px;
+}
+
+.formInfoBlock{
+
+}
+
+.TabControls button {
+
+
+}
+
+.methodContainer{
+
+  width:100%;
+  margin:10px;
+  padding:5px;
+
+}
+.cornerInputContainer{
+
+  display:flex;
+  justify-content:end;
+
+}

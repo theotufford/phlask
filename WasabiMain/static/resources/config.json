@@ -1,9 +1,16 @@
-{"plates":[
-  {"dimension":{"rows":8,"columns":12},
-    "namingConvention":"AN",
-    "radius":5},
+{"machineInfo":[ 
+  {"plates":[
+    {"dimension":{"rows":8,"columns":12},
+      "spacing":5},
 
-  {"dimension":{"rows":2,"columns":3},
-    "namingConvention":"n",
-    "radius":20}
+    {"dimension":{"rows":2,"columns":3},
+      "spacing":20},
+
+    {"dimension":{"rows":16,"columns":24},
+      "spacing":8}
+  ]}, 
+  {"machineParameters":{
+    "spacing":3
+    
+  }}
 ]}

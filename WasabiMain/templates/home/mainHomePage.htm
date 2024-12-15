@@ -1,45 +1,44 @@
 <!DOCTYPE html>
 <html>
 
+<head>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 <script rel="js" src="{{ url_for('static', filename='js/functions.js') }}"></script> 
+</head>
 
 
-
-<div>
-  <h1 id="pageHeader">Wasabi Home</h1>
-  <div class="headerlink">
-  <a style="text-decoration: none; color:black" href="../program/">Experiment Programmer</a>
-  </div>
-</div>
-
-<div class="dropdown-group">
-
-  <div class="dropdown" method="GET" action="/">
-    <button onclick="showFunction('myDropdown')" class="dropbtn">Select experiment</button>
-    <div id="myDropdown" class="dropdown-content">
-      <input class="DDsearch" type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction('myInput','myDropdown')">
-
-        {% for experiment in experiments %}
-        <a href="#{{experiment[0]}}">{{experiment[0]}}</a>
-        {% endfor %}
-
+<body>
+  <div>
+    <h1 id="pageHeader">Wasabi Home</h1>
+    <div class="headerlink">
+    <a style="text-decoration: none; color:black" href="../program/">Experiment Programmer</a>
     </div>
   </div>
 
-  <div class="dropdown" method="GET" action="/">
-    <button onclick="showFunction('plateDropdown')" class="dropbtn">Select plate</button>
-    <div id="plateDropdown" class="dropdown-content">
-      <input class="DDsearch" type="text" placeholder="Search.." id="plateSelector" onkeyup="filterFunction('plateSelector','plateDropdown')">
+  <div class="dropdown-group">
 
-        {% for plate in plates %}
-        <a href="#{{plate[0]}}">{{plate[0]}}</a>
-        {% endfor %}
+    <div class="dropdown" method="GET" action="/">
+      <button onclick="showFunction('myDropdown')" class="dropbtn">Select experiment</button>
+      <div id="myDropdown" class="dropdown-content">
+        <input class="DDsearch" type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction('myInput','myDropdown')">
 
+          {% for experiment in experiments %}
+          <a href="#{{experiment[0]}}">{{experiment[0]}}</a>
+          {% endfor %}
+
+      </div>
     </div>
   </div>
-</div>
-
+    <div class = "pumpdefiner">
+      <label for="pumpContents">Set new pump contents: </label>
+      <input name = "pumpContents" onchange = "pumpUpdatejs(this.value)">
+      <select id = "selectPump">
+          {% for pump in pumps %}
+          <option value="{{pump}}">{{pump + "; (" + pumps[pump] + ")" }}</option>
+          {% endfor %}
+      </select>
+    </div>
+</body>
   
 </html>
 

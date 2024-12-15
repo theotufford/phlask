@@ -1,43 +1,140 @@
 <!DOCTYPE html>
-
-
-<script rel="js" src="{{ url_for('static', filename='js/functions.js') }}"></script> 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script rel="js" src="{{ url_for('static', filename='js/functions.js') }}"></script> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <title>Programmer</title>
+</head>
 <body>
 
-
-<div id='plateOverContainer' style="float:left">
-  
-  <div id="plateDisplay">
-    <div class="plateDropdown" method="GET" action="/">
-      <button onclick="showFunction('plateDropdown')">Select plate</button>
-      <div id="plateDropdown" class="dropdown-content">
-          {% for plate in DBplates %}
-        <li>
-          <button onclick = 'renderPlate({{DBplates[plate] | tojson }})' class = "dropdownButton">{{plate}}</button>
-        </li>
-          {% endfor %}
-      </div>
+<div id="experimentContainer">
+  <div id = "titleBar">
+    <h2>Experiment Programmer</h2>
+    <div id="plateSelectorContainer">
+      <select id="plateSelector" onchange = 'renderPlate()'> 
+        <option value="empty" selected>select well plate</option>
+        {% for plate in DBplates %}
+          <option value='{{ DBplates[plate] | tojson }}'>{{ plate }}</option>
+        {% endfor %}
+      </select>
     </div>
   </div>
-  <div class="canvascontainer" >
-  <svg id="plateCanvas" width = "60vw" height = "100vh" xmlns="http://www.w3.org/2000/svg">
+
+
+<div class="hidden" id = "instructionformtemp" >
+  <div class = "selectors">
+    <select class="pumpDropdown"> 
+      <option value="empty" selected>select pump contents</option>
+      {% for pump in PumpContents %} 
+        <option value="{{ PumpContents[pump] }}">{{ PumpContents[pump] }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <select class = "shorthand methodSelect" onchange = "updateMethod(this)">
+      <option value="empty" selected>select method</option>
+      <option value="constant"> constant volume </option>
+      <option value="Gradient"> 1D gradient </option>
+    </select>
+  </div>
+
+  <div class = "methodContainer">
+  </div>
+
+  <div class = "formInfoBlock ">
+  <div class = "shorthand cornerInputContainer">
+    <input class = "wellSelector" value = "from" 
+        onclick=
+        "if(this.value === 'from'){this.value=''}else{};" 
+        onchange = 
+          "verifyWellInput(this)" >
+    </input>
+    <input class = "wellSelector" value = "to" 
+        onclick=
+        "if(this.value === 'to'){this.value=''}else{};" 
+        onchange = 
+          "verifyWellInput(this)" >
+    </input>
+  </div>
+  </div>
+  <div class = "shortHandInfoContainer shorthand">
+  </div>
+
+  <div class = "tabControls shorthand">
+    <button onclick = "deleteform(this)">x</button>
+    <button onclick = "setActiveForm(this.parentElement.parentElement)">o</button>
   </div>
 </div>
-<div id="experimentContainer" style="float:left">
 
-  <h4>Experiment title</h4>
-  <input name="title">
 
-  <form id="instruction">
-    <input id="form">
-  </form>
+<div id = "formContainer">
+  
+</div>
 
+
+
+
+<div id = "expansionButtons">
   <button 
-    onclick="makeCopy('instruction','experimentContainer')">
-    add another instruction
+    class = "mediumButton"
+    onclick="makeCopy()">
+    add instruction
   </button>
+  <br>
+  <label for="experimentTitle">Name experiment:</label>
+  <input name = "experimentTitle" id = "title">
+  <br>
+  <button class = "mediumButton" onclick='logExperiment({{url_for("programmer.programmer") }})'>Store Experiment</button>
+</div>
+</div>
 
-  <button onclick='logExperiment()'>Store Experiment</button>
+<!-- element that contains the plate display -->
+<div id='plateOverContainer'>
+  <div id="plateContainer">
+  <svg id="plateSvgElement" width="100%" xmlns="http://www.w3.org/2000/svg">
+</div>
+
+
+
+<!-- this is where you can put any of the custom forms for any of the methods-->
+<div class = "hidden">
+
+  <div class = "customMethodForm" id = "constant">
+    <label for="volumeinput"> volume: </label>
+          <input name = "volumeinput" class = "constantVolume" style = "width: 3vw" onchange = "updateOutput('volume', parseInt(this.value))">
+    </input>
+    <br>
+    <label for="unitSelect">units: </label>
+      <select class = "unitSelect" name = "unitSelect" onchange = "updateOutput()">
+            <option value="ml">ml</option>
+            <option value="ul">ul</option>
+      </select>
+  </div>
+
+  <div class = "customMethodForm" id = "Gradient">
+    <label for="gradSelect">Select Gradient Direction</label>
+    <select name = "gradSelect" class = "gradientDirectionSelect" onchange = "updateOutput('direction', this.value)">
+      <option value="right"> rightward </option>
+      <option value="left"> leftward </option>
+      <option value="down"> downward </option>
+      <option value="up"> upward </option>
+    </select>
+    <br>
+    <label for="initialVolume"> initialVolume: </label>
+    <input name = "initialVolume" class = "gradVolume" style = "width: 3vw" oninput = "updateOutput('initialVolume', parseInt(this.value))">
+    </input>
+    <br>
+    <label for="increment"> increment </label>
+    <input name = "increment" class = "gradVolume" style = "width: 3vw" oninput = "updateOutput('increment', parseInt(this.value))">
+    </input>
+    <br>
+    <label for="unitSelect">units: </label>
+      <select class = "unitSelect" name = "unitSelect" onchange = "updateOutput()">
+            <option value="ml">ml</option>
+            <option value="ul">ul</option>
+      </select>
+  </div>
+
 </div>
 </body>
