@@ -25,7 +25,7 @@ def programmer():
         flash(error)
 
     with current_app.open_resource('./static/resources/config.json') as f:
-        PlateInfo = json.loads(f.read())["machineInfo"][0]
+        PlateInfo = json.loads(f.read())["machineInfo"]["plates"]
 
     DBplates = json.loads(db.execute('SELECT plateData FROM plateatlas').fetchone()[0])
 

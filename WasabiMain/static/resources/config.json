@@ -1,5 +1,5 @@
-{"machineInfo":[ 
-  {"plates":[
+{"machineInfo":{
+  "plates":[
     {"dimension":{"rows":8,"columns":12},
       "spacing":5},
 
@@ -8,9 +8,23 @@
 
     {"dimension":{"rows":16,"columns":24},
       "spacing":8}
-  ]}, 
-  {"machineParameters":{
-    "spacing":3
-    
-  }}
-]}
+  ], 
+
+  "pumpCount": 3,
+  "armDimensions" :{"upperarm":20,"forearm": 35},
+
+  "ElectronicsDefinitions" : {
+
+    "aEndstop":0, 
+    "bEndstop":0, 
+    "zEndstop":0, 
+
+    "aMotor": {
+      "pins":{"step": 0, "direction": 0, "enable": 0},
+      "E-steps": 0
+    } 
+
+
+
+  }
+}}

@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script rel="js" src="{{ url_for('static', filename='js/functions.js') }}"></script> 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- this is so the favicon functions on all devices, relatively easy to copy and paste from realFaviconGenerator-->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon/favicon-96x96.png')}}" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon/favicon.svg')}}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico')}}" >
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png')}}" >
+  <meta name="apple-mobile-web-app-title" content="W.A.S.A.B.I" />
+  <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest')}}" >
   <title>Programmer</title>
 </head>
 <body>

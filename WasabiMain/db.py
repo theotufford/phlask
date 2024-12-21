@@ -30,13 +30,13 @@ def wellPos():
     plateMapCollection = {}
 
     with current_app.open_resource('./static/resources/config.json') as f:
-        PlateInfo = json.loads(f.read())["machineInfo"][0]
+        PlateInfo = json.loads(f.read())["machineInfo"]["plates"]
 
 
 # basically this just takes the plates by their dimensions, assigns that as the key, and then nests a subdictionary of all the well coordinates
 # it then inserts that into the database with 
 # probably one of my favorite things in this project because it absolutely brain melted me 
-    for plate in PlateInfo["plates"]:
+    for plate in PlateInfo:
         plateMap = {}
         ypos = 0
         plateName = "(" + str(plate["dimension"]["rows"]) + "," + str(plate["dimension"]["columns"]) + ")" #make a string in the form of (rows,columns) to act as the key to each plate
@@ -66,9 +66,11 @@ def pumpUpdate(updatedict):
     pumpData = {}
     db = get_db()
     with current_app.open_resource('./static/resources/config.json') as f:
-        machineParams = json.loads(f.read())["machineInfo"][1]["machineParameters"]
-        pumpData = json.loads(db.execute('SELECT pumpData FROM pumpatlas').fetchone()[0])
-        pumpData[updatedict['name']] = updatedict['contents']
+        try:
+            pumpData = json.loads(db.execute('SELECT pumpData FROM pumpatlas').fetchone()[0])
+        except Exception as e:
+            print(e)
+    pumpData[updatedict['name']] = updatedict['contents']
     print(json.dumps(pumpData))
     db.execute("DELETE FROM pumpatlas")
     db.execute(
@@ -81,17 +83,28 @@ def init_db():
     db = get_db()
     with current_app.open_resource('schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
-
+    with current_app.open_resource('./static/resources/config.json') as j:
+        count = json.loads(j.read())["machineInfo"]["pumpCount"] 
+        for id in range(1, count+1):
+            name = "pump" + str(id)
+            pumpUpdate({"name": name, "contents": "empty"})
     plateUpdate()
-    pumpUpdate(False)
-    
 
 
 @click.command('init-db')
 def init_db_command():
-    """Clear the existing data and create new tables."""
-    init_db()
-    click.echo('Initialized the database.')
+    click.echo(
+    """ \n WARNING: this will clear delete all of the data stored in the database and create new tables. 
+       it should only be done if you are just building the application for the first time 
+    \n if you are just updating the machine config you can use the \"configUpdate\" command 
+    or if you just want to update the pumps or plate specifically from the config file you can use \"plateUpdate\" and \"pumpUpdate\" 
+    \n """)
+    choice = input("do you want to proceed? y/n")
+    if choice == "y":
+        init_db()
+        click.echo('tables cleared and database initialized.')
+    else:
+        click.echo("aborted")
 
 
 @click.command('plateUpdate')
